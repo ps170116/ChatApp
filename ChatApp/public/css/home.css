@@ -1,0 +1,61 @@
+.menu{
+    background-color: #E4E4E4;
+}
+.darklist{
+    background-color: #D3D0D0;
+}
+
+.header{
+    min-height: 75vh;
+    
+}
+.header-1{
+    height: min-content;
+}
+
+.chat-left{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-left: 15px;
+    background-color: gray;
+    border-radius: 15px;
+}
+
+.chat-right{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: 15px;
+    background-color: rgb(189, 187, 187);
+    border-radius: 15px;
+}
+
+.triangle-left{
+    
+    position:absolute;
+    width: 0;
+    height: 0;
+    left: 0;
+    bottom: 0;
+   
+    transform: rotate(-35deg);
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-right: 30px solid gray;
+}
+.triangle-right{
+    
+    position:absolute;
+    width: 0;
+    height: 0;
+    right: 3px;
+    bottom: 0;
+   
+    transform: rotate(35deg);
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-left: 30px solid rgb(189, 187, 187);
+}
