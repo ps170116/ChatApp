@@ -65,9 +65,7 @@
                 
             }
         },
-        mounted(){
-            scrolldown();
-        },
+        
         created() {
             
             window.Echo.join("tasks." + this.project.id)
@@ -129,6 +127,7 @@
             save(){
                  axios.post(`/api/projects/${this.project.id}/tasks`, {body: this.newTask, user_id: this.user_id})
             .then(response => response.data)
+            .then(this.newTask = '')
             .then(this.addTask);
             },
 
@@ -136,9 +135,8 @@
                 this.activePeer = false;
 
                 this.project.tasks.push(task);
-                this.newTask = '';
-                var container = this.$el.querySelector("#div-chat");
-                container.scrollTop = container.scrollHeight;
+                // this.newTask = '';
+               
         }
         }
     }

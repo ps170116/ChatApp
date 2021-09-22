@@ -22,10 +22,7 @@ use SebastianBergmann\Environment\Console;
 |
 */
 
-Route::get('/projects/{project}', function (Project $project) {
-    $project->load('tasks');    
-    return view('chat', compact('project'));
-})->name('chat')->middleware('auth');
+Route::get('/projects/{project}', [HomeController::class, 'chat'])->name('chat')->middleware('auth');
 
 Route::get('/toevoegen', [HomeController::class, 'friends'])->name('friends');
 Route::get('/toevoegen/vried/{id}', [HomeController::class, 'addfriend'])->name('voegvriend_toe');

@@ -2129,9 +2129,6 @@ __webpack_require__.r(__webpack_exports__);
       Last_date: 'test'
     };
   },
-  mounted: function mounted() {
-    scrolldown();
-  },
   created: function created() {
     var _this = this;
 
@@ -2179,14 +2176,11 @@ __webpack_require__.r(__webpack_exports__);
         user_id: this.user_id
       }).then(function (response) {
         return response.data;
-      }).then(this.addTask);
+      }).then(this.newTask = '').then(this.addTask);
     },
     addTask: function addTask(task) {
       this.activePeer = false;
-      this.project.tasks.push(task);
-      this.newTask = '';
-      var container = this.$el.querySelector("#div-chat");
-      container.scrollTop = container.scrollHeight;
+      this.project.tasks.push(task); // this.newTask = '';
     }
   }
 });

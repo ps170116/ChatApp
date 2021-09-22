@@ -63,4 +63,17 @@ class HomeController extends Controller
 
         return  redirect()->route('chat', $project->id);
     }
+    public function chat(Project $project)
+    {
+        $project->load('tasks'); 
+       $users =  project_participant::where([['project_id', '=', $project->id]])->get();
+    foreach ($users as $user) {
+        if ($user->user_id == Auth::user()->id) {
+               
+            return view('chat', compact('project'));
+        }
+    }
+    return redirect()->route('home');
+    
+    }
 }
