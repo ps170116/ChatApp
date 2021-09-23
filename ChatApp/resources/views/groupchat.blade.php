@@ -17,10 +17,15 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" href=" {{ URL::asset('css/home.css') }}">
 
-    @php
-        $test = \App\Models\project_participant::where([['project_id', '=', $project->id],['user_id', '!=', Auth::user()->id]])->first();
-        $user = \App\Models\User::where([['id', '=', $test->user_id]])->first();
-
+    <?php
+        $deelnemers = \App\Models\project_participant::where([['project_id', '=', $project->id],['user_id', '!=', Auth::user()->id]])->get();
+        $users = [];
+        foreach ($deelnemers as $deelnemer) {
+            $user = \App\Models\User::where([['id', '=', $deelnemer->user_id]])->first();
+            array_push($users, $user->name);
+        };
+        $stingusers = implode(", ", $users);  
+        
         $projects1 = \App\Models\project_participant::where([['user_id','=',Auth::user()->id]])->get();
         $groeps1 = \App\Models\Project::where([['name', '!=', 'prive']])->get();
         $mygroups1 = [];
@@ -32,12 +37,11 @@
             }
         }
 
-        
-    @endphp
+    ?>
           <script>
-      
+            window.users = <?= json_encode($stingusers); ?>;       
             window.App = <?= json_encode(['user' => auth()->user() ]); ?>;
-            window.user = <?= $user ?>;
+    
 
         </script>
     </head>
@@ -56,9 +60,9 @@
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                     @csrf
                                 </form>
-                                <div class="p-2"><a href="{{route('friends')}}">+ Voeg vrienden toe</a> </div>
+            <div class="p-2"><a href="{{route('friends')}}">+ Voeg vrienden toe</a> </div>
 
-            <div class="p-2"><a href="{{route('groep')}}" >+ Maak Groep aan</a></div>
+           <div class="p-2"><a href="{{route('groep')}}" >+ Maak Groep aan</a></div>
 
            <div class="p-2 border-b-2 border-gray-500"><p>Berichten</p></div> 
             @php
@@ -73,7 +77,7 @@
             {{$user->name}}<br>
             <span class="no-underline text-sm">online</span>    
             </div></a>  @endforeach
-            @foreach ($mygroups1 as $groep)
+             @foreach ($mygroups1 as $groep)
             <a href="{{route('chatg', $groep->id)}}" class="block p-3 darklist no-underline mt-2"><div class="no-underline">
                 {{$groep->name}}<br>
                   
@@ -82,7 +86,7 @@
 
         </div>   
         <div id="app" class="flex-center col-span-4  position-ref full-height">
-             <task-list  :data-project = "{{$project}}"></task-list>
+             <group-chat title="{{$stingusers}}"  :data-project = "{{$project}}"></group-chat>
         </div>
         
     </div>

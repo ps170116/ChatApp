@@ -2054,6 +2054,147 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Groupchat.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Groupchat.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  props: ['data-project'],
+  data: function data() {
+    return {
+      project: this.dataProject,
+      newTask: '',
+      activePeer: false,
+      typingTimer: false,
+      participants: [],
+      name1: window.App.user.name,
+      user_id: window.App.user.id,
+      users: window.users,
+      is_current: false,
+      Last_date: 'test'
+    };
+  },
+  created: function created() {
+    var _this = this;
+
+    window.Echo.join("tasks." + this.project.id).here(function (users) {
+      _this.participants = users;
+    }).joining(function (user) {
+      _this.participants.push(user);
+    }).leaving(function (user) {
+      _this.participants.splice(_this.participants.indexOf(user), 1);
+    }).listen("TaskCreated", function (_ref) {
+      var task = _ref.task;
+      return _this.addTask(task);
+    }).listenForWhisper('typing', function (e) {
+      _this.activePeer = e;
+      if (_this.typingTimer) clearTimeout(_this.typingTimer);
+      _this.typingTimer = setTimeout(function () {
+        _this.activePeer = false;
+      }, 3000);
+    });
+  },
+  methods: {
+    getnames: function getnames() {
+      window.axios.get("/api/deelnemers/".concat(this.project.id)).then(function (response) {
+        return response.data;
+      });
+    },
+    checkdate: function checkdate(task) {
+      var date = new Date(task.created_at);
+      var d = date.getDay() + "/" + date.getMonth() + "/" + date.getFullYear();
+
+      if (this.Last_date === d) {
+        return false;
+      } else {
+        this.Last_date = d;
+        return true;
+      }
+    },
+    gettime: function gettime(task) {
+      var t = new Date(task.created_at);
+      return t.getHours() + ':' + ('0' + t.getMinutes()).slice(-2);
+    },
+    tagPeers: function tagPeers() {
+      window.Echo.join('tasks.' + this.project.id).whisper('typing', {
+        name: window.App.user.name
+      });
+    },
+    save: function save() {
+      axios.post("/api/projects/".concat(this.project.id, "/tasks"), {
+        body: this.newTask,
+        user_id: this.name1
+      }).then(function (response) {
+        return response.data;
+      }).then(this.newTask = '').then(this.addTask);
+    },
+    addTask: function addTask(task) {
+      this.activePeer = false;
+      this.project.tasks.push(task); // this.newTask = '';
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/TaskList.vue?vue&type=script&lang=js&":
 /*!***************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/TaskList.vue?vue&type=script&lang=js& ***!
@@ -2173,7 +2314,7 @@ __webpack_require__.r(__webpack_exports__);
     save: function save() {
       axios.post("/api/projects/".concat(this.project.id, "/tasks"), {
         body: this.newTask,
-        user_id: this.user_id
+        user_id: this.name1
       }).then(function (response) {
         return response.data;
       }).then(this.newTask = '').then(this.addTask);
@@ -2212,6 +2353,7 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js"
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component('task-list', __webpack_require__(/*! ./components/TaskList.vue */ "./resources/js/components/TaskList.vue")["default"]);
+Vue.component('group-chat', __webpack_require__(/*! ./components/Groupchat.vue */ "./resources/js/components/Groupchat.vue")["default"]);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -43826,6 +43968,45 @@ runtime.setup(pusher_Pusher);
 
 /***/ }),
 
+/***/ "./resources/js/components/Groupchat.vue":
+/*!***********************************************!*\
+  !*** ./resources/js/components/Groupchat.vue ***!
+  \***********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _Groupchat_vue_vue_type_template_id_0c344e08___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Groupchat.vue?vue&type=template&id=0c344e08& */ "./resources/js/components/Groupchat.vue?vue&type=template&id=0c344e08&");
+/* harmony import */ var _Groupchat_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Groupchat.vue?vue&type=script&lang=js& */ "./resources/js/components/Groupchat.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _Groupchat_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Groupchat_vue_vue_type_template_id_0c344e08___WEBPACK_IMPORTED_MODULE_0__.render,
+  _Groupchat_vue_vue_type_template_id_0c344e08___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/Groupchat.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/components/TaskList.vue":
 /*!**********************************************!*\
   !*** ./resources/js/components/TaskList.vue ***!
@@ -43865,6 +44046,22 @@ component.options.__file = "resources/js/components/TaskList.vue"
 
 /***/ }),
 
+/***/ "./resources/js/components/Groupchat.vue?vue&type=script&lang=js&":
+/*!************************************************************************!*\
+  !*** ./resources/js/components/Groupchat.vue?vue&type=script&lang=js& ***!
+  \************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Groupchat_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Groupchat.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Groupchat.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Groupchat_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
 /***/ "./resources/js/components/TaskList.vue?vue&type=script&lang=js&":
 /*!***********************************************************************!*\
   !*** ./resources/js/components/TaskList.vue?vue&type=script&lang=js& ***!
@@ -43881,6 +44078,23 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/Groupchat.vue?vue&type=template&id=0c344e08&":
+/*!******************************************************************************!*\
+  !*** ./resources/js/components/Groupchat.vue?vue&type=template&id=0c344e08& ***!
+  \******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Groupchat_vue_vue_type_template_id_0c344e08___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Groupchat_vue_vue_type_template_id_0c344e08___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Groupchat_vue_vue_type_template_id_0c344e08___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Groupchat.vue?vue&type=template&id=0c344e08& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Groupchat.vue?vue&type=template&id=0c344e08&");
+
+
+/***/ }),
+
 /***/ "./resources/js/components/TaskList.vue?vue&type=template&id=0afd8bae&":
 /*!*****************************************************************************!*\
   !*** ./resources/js/components/TaskList.vue?vue&type=template&id=0afd8bae& ***!
@@ -43894,6 +44108,180 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_TaskList_vue_vue_type_template_id_0afd8bae___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_TaskList_vue_vue_type_template_id_0afd8bae___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./TaskList.vue?vue&type=template&id=0afd8bae& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/TaskList.vue?vue&type=template&id=0afd8bae&");
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Groupchat.vue?vue&type=template&id=0c344e08&":
+/*!*********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Groupchat.vue?vue&type=template&id=0c344e08& ***!
+  \*********************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "grid h-screen col p-0 m-0 grid-rows-none grid-cols-12" },
+    [
+      _c(
+        "div",
+        { staticClass: " text-white header-1 col-span-12  bg-gray-600 p-3" },
+        [
+          _c("h3", {
+            staticClass: " text-2xl",
+            domProps: { textContent: _vm._s(_vm.project.name) }
+          }),
+          _vm._v(" "),
+          _c("div", [_vm._v(_vm._s(_vm.users))]),
+          _vm._v(" "),
+          _vm.activePeer
+            ? _c("span", {
+                domProps: {
+                  textContent: _vm._s(_vm.activePeer.name + " is typing... ")
+                }
+              })
+            : _vm._e()
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: " grid col-span-12 header overflow-y-auto",
+          attrs: { id: "div-chat" }
+        },
+        [
+          _c("div", { staticClass: " " }, [
+            _c(
+              "ul",
+              { staticClass: "list-group" },
+              _vm._l(_vm.project.tasks, function(task, i) {
+                return _c("div", { key: i }, [
+                  _vm.checkdate(task)
+                    ? _c("div", [
+                        _c("li", {
+                          staticClass:
+                            " text-center m-3 border-b-2 border-gray-300",
+                          domProps: { textContent: _vm._s(_vm.Last_date) }
+                        })
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  task.user_id != _vm.name1
+                    ? _c("div", { staticClass: "  w-2/5 relative  my-1" }, [
+                        _c("div", { staticClass: " chat-left" }, [
+                          _c("li", {
+                            staticClass: "mt-2 text-lg",
+                            domProps: { textContent: _vm._s(task.body) }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "li",
+                            {
+                              staticClass:
+                                " text-right text-xs absolute bottom-1 right-5"
+                            },
+                            [_vm._v(_vm._s(_vm.gettime(task)))]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "li",
+                            {
+                              staticClass:
+                                " text-right text-sm absolute top-0 text-gray-300 "
+                            },
+                            [_vm._v(_vm._s(task.user_id))]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "triangle-left" })
+                      ])
+                    : _c(
+                        "div",
+                        { staticClass: "flex relative  justify-end my-1" },
+                        [
+                          _c("div", { staticClass: "triangle-right" }),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "chat-right w-2/5" }, [
+                            _c("li", {
+                              staticClass: " text-lg",
+                              domProps: { textContent: _vm._s(task.body) }
+                            }),
+                            _vm._v(" "),
+                            _c(
+                              "li",
+                              {
+                                staticClass:
+                                  " text-right text-xs absolute bottom-1 right-7"
+                              },
+                              [_vm._v(_vm._s(_vm.gettime(task)))]
+                            )
+                          ])
+                        ]
+                      )
+                ])
+              }),
+              0
+            )
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass:
+            " col-start-1 col-span-12 row-start-3 d-flex align-items-end m-3  flex-row "
+        },
+        [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.newTask,
+                expression: "newTask"
+              }
+            ],
+            staticClass: " w-full h-10 rounded-xl border-2 border-gray-600 ",
+            attrs: { type: "text" },
+            domProps: { value: _vm.newTask },
+            on: {
+              keyup: function($event) {
+                if (
+                  !$event.type.indexOf("key") &&
+                  _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+                ) {
+                  return null
+                }
+                return _vm.save.apply(null, arguments)
+              },
+              keydown: _vm.tagPeers,
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.newTask = $event.target.value
+              }
+            }
+          })
+        ]
+      )
+    ]
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
 
 
 /***/ }),
@@ -43960,7 +44348,7 @@ var render = function() {
                       ])
                     : _vm._e(),
                   _vm._v(" "),
-                  task.user_id != _vm.user_id
+                  task.user_id != _vm.name1
                     ? _c("div", { staticClass: "  w-2/5 relative  my-1" }, [
                         _c("div", { staticClass: " chat-left" }, [
                           _c("li", {
@@ -56223,7 +56611,7 @@ Vue.compile = compileToFunctions;
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"name":"axios","version":"0.21.4","description":"Promise based HTTP client for the browser and node.js","main":"index.js","scripts":{"test":"grunt test","start":"node ./sandbox/server.js","build":"NODE_ENV=production grunt build","preversion":"npm test","version":"npm run build && grunt version && git add -A dist && git add CHANGELOG.md bower.json package.json","postversion":"git push && git push --tags","examples":"node ./examples/server.js","coveralls":"cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js","fix":"eslint --fix lib/**/*.js"},"repository":{"type":"git","url":"https://github.com/axios/axios.git"},"keywords":["xhr","http","ajax","promise","node"],"author":"Matt Zabriskie","license":"MIT","bugs":{"url":"https://github.com/axios/axios/issues"},"homepage":"https://axios-http.com","devDependencies":{"coveralls":"^3.0.0","es6-promise":"^4.2.4","grunt":"^1.3.0","grunt-banner":"^0.6.0","grunt-cli":"^1.2.0","grunt-contrib-clean":"^1.1.0","grunt-contrib-watch":"^1.0.0","grunt-eslint":"^23.0.0","grunt-karma":"^4.0.0","grunt-mocha-test":"^0.13.3","grunt-ts":"^6.0.0-beta.19","grunt-webpack":"^4.0.2","istanbul-instrumenter-loader":"^1.0.0","jasmine-core":"^2.4.1","karma":"^6.3.2","karma-chrome-launcher":"^3.1.0","karma-firefox-launcher":"^2.1.0","karma-jasmine":"^1.1.1","karma-jasmine-ajax":"^0.1.13","karma-safari-launcher":"^1.0.0","karma-sauce-launcher":"^4.3.6","karma-sinon":"^1.0.5","karma-sourcemap-loader":"^0.3.8","karma-webpack":"^4.0.2","load-grunt-tasks":"^3.5.2","minimist":"^1.2.0","mocha":"^8.2.1","sinon":"^4.5.0","terser-webpack-plugin":"^4.2.3","typescript":"^4.0.5","url-search-params":"^0.10.0","webpack":"^4.44.2","webpack-dev-server":"^3.11.0"},"browser":{"./lib/adapters/http.js":"./lib/adapters/xhr.js"},"jsdelivr":"dist/axios.min.js","unpkg":"dist/axios.min.js","typings":"./index.d.ts","dependencies":{"follow-redirects":"^1.14.0"},"bundlesize":[{"path":"./dist/axios.min.js","threshold":"5kB"}]}');
+module.exports = JSON.parse('{"_args":[["axios@0.21.4","C:\\\\Users\\\\Jopbo\\\\OneDrive\\\\Bureaublad\\\\ChatApp\\\\ChatApp"]],"_development":true,"_from":"axios@0.21.4","_id":"axios@0.21.4","_inBundle":false,"_integrity":"sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==","_location":"/axios","_phantomChildren":{},"_requested":{"type":"version","registry":true,"raw":"axios@0.21.4","name":"axios","escapedName":"axios","rawSpec":"0.21.4","saveSpec":null,"fetchSpec":"0.21.4"},"_requiredBy":["#DEV:/"],"_resolved":"https://registry.npmjs.org/axios/-/axios-0.21.4.tgz","_spec":"0.21.4","_where":"C:\\\\Users\\\\Jopbo\\\\OneDrive\\\\Bureaublad\\\\ChatApp\\\\ChatApp","author":{"name":"Matt Zabriskie"},"browser":{"./lib/adapters/http.js":"./lib/adapters/xhr.js"},"bugs":{"url":"https://github.com/axios/axios/issues"},"bundlesize":[{"path":"./dist/axios.min.js","threshold":"5kB"}],"dependencies":{"follow-redirects":"^1.14.0"},"description":"Promise based HTTP client for the browser and node.js","devDependencies":{"coveralls":"^3.0.0","es6-promise":"^4.2.4","grunt":"^1.3.0","grunt-banner":"^0.6.0","grunt-cli":"^1.2.0","grunt-contrib-clean":"^1.1.0","grunt-contrib-watch":"^1.0.0","grunt-eslint":"^23.0.0","grunt-karma":"^4.0.0","grunt-mocha-test":"^0.13.3","grunt-ts":"^6.0.0-beta.19","grunt-webpack":"^4.0.2","istanbul-instrumenter-loader":"^1.0.0","jasmine-core":"^2.4.1","karma":"^6.3.2","karma-chrome-launcher":"^3.1.0","karma-firefox-launcher":"^2.1.0","karma-jasmine":"^1.1.1","karma-jasmine-ajax":"^0.1.13","karma-safari-launcher":"^1.0.0","karma-sauce-launcher":"^4.3.6","karma-sinon":"^1.0.5","karma-sourcemap-loader":"^0.3.8","karma-webpack":"^4.0.2","load-grunt-tasks":"^3.5.2","minimist":"^1.2.0","mocha":"^8.2.1","sinon":"^4.5.0","terser-webpack-plugin":"^4.2.3","typescript":"^4.0.5","url-search-params":"^0.10.0","webpack":"^4.44.2","webpack-dev-server":"^3.11.0"},"homepage":"https://axios-http.com","jsdelivr":"dist/axios.min.js","keywords":["xhr","http","ajax","promise","node"],"license":"MIT","main":"index.js","name":"axios","repository":{"type":"git","url":"git+https://github.com/axios/axios.git"},"scripts":{"build":"NODE_ENV=production grunt build","coveralls":"cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js","examples":"node ./examples/server.js","fix":"eslint --fix lib/**/*.js","postversion":"git push && git push --tags","preversion":"npm test","start":"node ./sandbox/server.js","test":"grunt test","version":"npm run build && grunt version && git add -A dist && git add CHANGELOG.md bower.json package.json"},"typings":"./index.d.ts","unpkg":"dist/axios.min.js","version":"0.21.4"}');
 
 /***/ })
 

@@ -1,7 +1,8 @@
 <template>
 <div class="grid h-screen col p-0 m-0 grid-rows-none grid-cols-12">
     <div class=" text-white header-1 col-span-12  bg-gray-600 p-3">
-        <h3 class=" text-2xl" v-text="user2"></h3>
+        <h3 class=" text-2xl" v-text="project.name"></h3>
+        <div>{{users}}</div>
         <span v-if="activePeer" v-text="activePeer.name + ' is typing... '"></span>
     </div>
     <div id="div-chat" class=" grid col-span-12 header overflow-y-auto">
@@ -15,8 +16,9 @@
 
                 <div class="  w-2/5 relative  my-1" v-if="task.user_id != name1">
                     <div class=" chat-left">
-                        <li v-text="task.body" ></li>
+                        <li class="mt-2 text-lg" v-text="task.body" ></li>
                         <li class=" text-right text-xs absolute bottom-1 right-5">{{gettime(task)}}</li>
+                        <li class=" text-right text-sm absolute top-0 text-gray-300 ">{{task.user_id}}</li>
                     </div>
                     <div class="triangle-left"></div>
                 </div>
@@ -24,8 +26,9 @@
                 <div v-else class="flex relative  justify-end my-1">
                      <div class="triangle-right"></div>
                     <div class="chat-right w-2/5">
-                        <li v-text="task.body" ></li>
+                        <li class=" text-lg" v-text="task.body" ></li>
                         <li class=" text-right text-xs absolute bottom-1 right-7">{{gettime(task)}}</li>
+                   
 
                     </div>
                    
@@ -50,8 +53,10 @@
 
     export default {
         props: ['data-project'],
+        
         data() {
             return {
+
                 project: this.dataProject,
                 newTask: '',
                 activePeer: false,
@@ -59,7 +64,7 @@
                 participants: [],
                 name1: window.App.user.name,
                 user_id: window.App.user.id,
-                user2: window.user.name,
+                users: window.users,
                 is_current: false,
                 Last_date: 'test',
                 
@@ -99,7 +104,13 @@
             
         },
         methods: {
-  
+            getnames(){
+                window.axios.get(`/api/deelnemers/${this.project.id}`)
+                .then(response => {
+                    return response.data})    
+            
+            },
+
             checkdate(task){
                 const date = new Date(task.created_at);
                 const d = date.getDay()+"/"+date.getMonth()+"/"+date.getFullYear();
