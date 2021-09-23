@@ -2,9 +2,9 @@
 
 @section('content')
 
-<div class="">
-    <div class=" grid  grid-cols-5">
-        <div class="col-auto p-0 text-xl min-h-screen menu">
+<div class=" max-h-screen">
+    <div class=" grid max-h-screen  grid-cols-5">
+        <div class="col-auto p-0 text-xl min-h-screen max-h-screen overflow-y-auto menu">
             <a class="dropdown-item text-sm text-right" href="{{ route('logout') }}"
                                    onclick="event.preventDefault();
                                                  document.getElementById('logout-form').submit();"> 
@@ -22,6 +22,9 @@
             @php
                 $friends = \App\Models\friend::where([['user_id', '=', Auth::user()->id]])->get();
             @endphp
+            <div class="  overflow-y-auto ">
+
+         
             @foreach ($friends as $friend)
                 @php
                 $user = \App\Models\User::where([['id', '=', $friend->friend_id]])->first();
@@ -39,7 +42,7 @@
             @endforeach
 
         </div>   
-        
+        </div>
     </div>
 </div>
 @endsection

@@ -4,7 +4,7 @@
 
 <div class="">
     <div class=" grid  grid-cols-5">
-        <div class="col-auto p-0 text-xl min-h-screen menu">
+        <div class="col-auto p-0 text-xl max-h-screen overflow-y-auto min-h-screen menu">
             <a class="dropdown-item text-sm text-right" href="{{ route('logout') }}"
                                    onclick="event.preventDefault();
                                                  document.getElementById('logout-form').submit();"> 

@@ -13,8 +13,8 @@
                     <li class=" text-center m-3 border-b-2 border-gray-300" v-text="Last_date"></li>
                 </div>
 
-                <div class="  w-2/5 relative  my-1" v-if="task.user_id != name1">
-                    <div class=" chat-left">
+                <div class=" w-2/5 relative  my-1" v-if="task.user_id != name1">
+                    <div class=" inline-block break-all w-full  chat-left">
                         <li v-text="task.body" ></li>
                         <li class=" text-right text-xs absolute bottom-1 right-5">{{gettime(task)}}</li>
                     </div>
@@ -23,7 +23,7 @@
 
                 <div v-else class="flex relative  justify-end my-1">
                      <div class="triangle-right"></div>
-                    <div class="chat-right w-2/5">
+                    <div class="inline-block break-all chat-right w-2/5">
                         <li v-text="task.body" ></li>
                         <li class=" text-right text-xs absolute bottom-1 right-7">{{gettime(task)}}</li>
 
@@ -40,7 +40,7 @@
        
     </div>
     <div class=" col-start-1 col-span-12 row-start-3 d-flex align-items-end m-3  flex-row ">
-    <input class=" w-full h-10 rounded-xl border-2 border-gray-600 " type="text" v-model="newTask" @keyup.enter='save' @keydown="tagPeers" ></div>
+    <input class=" w-full h-10 rounded-xl border-2 border-gray-600 " maxlength="500" type="text" v-model="newTask" @keyup.enter='save' @keydown="tagPeers" ></div>
   
 </div>
   

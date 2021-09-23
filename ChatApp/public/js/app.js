@@ -44177,31 +44177,38 @@ var render = function() {
                     : _vm._e(),
                   _vm._v(" "),
                   task.user_id != _vm.name1
-                    ? _c("div", { staticClass: "  w-2/5 relative  my-1" }, [
-                        _c("div", { staticClass: " chat-left" }, [
-                          _c("li", {
-                            staticClass: "mt-2 text-lg",
-                            domProps: { textContent: _vm._s(task.body) }
-                          }),
-                          _vm._v(" "),
-                          _c(
-                            "li",
-                            {
-                              staticClass:
-                                " text-right text-xs absolute bottom-1 right-5"
-                            },
-                            [_vm._v(_vm._s(_vm.gettime(task)))]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "li",
-                            {
-                              staticClass:
-                                " text-right text-sm absolute top-0 text-gray-300 "
-                            },
-                            [_vm._v(_vm._s(task.user_id))]
-                          )
-                        ]),
+                    ? _c("div", { staticClass: "   w-2/5  relative  my-1" }, [
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              " w-full inline-block break-all chat-left"
+                          },
+                          [
+                            _c("li", {
+                              staticClass: "mt-2 text-lg",
+                              domProps: { textContent: _vm._s(task.body) }
+                            }),
+                            _vm._v(" "),
+                            _c(
+                              "li",
+                              {
+                                staticClass:
+                                  " text-right text-xs absolute bottom-1 right-5"
+                              },
+                              [_vm._v(_vm._s(_vm.gettime(task)))]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "li",
+                              {
+                                staticClass:
+                                  " text-right text-sm absolute top-0 text-gray-300 "
+                              },
+                              [_vm._v(_vm._s(task.user_id))]
+                            )
+                          ]
+                        ),
                         _vm._v(" "),
                         _c("div", { staticClass: "triangle-left" })
                       ])
@@ -44211,21 +44218,28 @@ var render = function() {
                         [
                           _c("div", { staticClass: "triangle-right" }),
                           _vm._v(" "),
-                          _c("div", { staticClass: "chat-right w-2/5" }, [
-                            _c("li", {
-                              staticClass: " text-lg",
-                              domProps: { textContent: _vm._s(task.body) }
-                            }),
-                            _vm._v(" "),
-                            _c(
-                              "li",
-                              {
-                                staticClass:
-                                  " text-right text-xs absolute bottom-1 right-7"
-                              },
-                              [_vm._v(_vm._s(_vm.gettime(task)))]
-                            )
-                          ])
+                          _c(
+                            "div",
+                            {
+                              staticClass:
+                                "chat-right inline-block break-all w-2/5"
+                            },
+                            [
+                              _c("li", {
+                                staticClass: " text-lg",
+                                domProps: { textContent: _vm._s(task.body) }
+                              }),
+                              _vm._v(" "),
+                              _c(
+                                "li",
+                                {
+                                  staticClass:
+                                    " text-right text-xs absolute bottom-1 right-7"
+                                },
+                                [_vm._v(_vm._s(_vm.gettime(task)))]
+                              )
+                            ]
+                          )
                         ]
                       )
                 ])
@@ -44253,7 +44267,7 @@ var render = function() {
               }
             ],
             staticClass: " w-full h-10 rounded-xl border-2 border-gray-600 ",
-            attrs: { type: "text" },
+            attrs: { maxlength: "300", type: "text" },
             domProps: { value: _vm.newTask },
             on: {
               keyup: function($event) {
@@ -44349,21 +44363,28 @@ var render = function() {
                     : _vm._e(),
                   _vm._v(" "),
                   task.user_id != _vm.name1
-                    ? _c("div", { staticClass: "  w-2/5 relative  my-1" }, [
-                        _c("div", { staticClass: " chat-left" }, [
-                          _c("li", {
-                            domProps: { textContent: _vm._s(task.body) }
-                          }),
-                          _vm._v(" "),
-                          _c(
-                            "li",
-                            {
-                              staticClass:
-                                " text-right text-xs absolute bottom-1 right-5"
-                            },
-                            [_vm._v(_vm._s(_vm.gettime(task)))]
-                          )
-                        ]),
+                    ? _c("div", { staticClass: " w-2/5 relative  my-1" }, [
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              " inline-block break-all w-full  chat-left"
+                          },
+                          [
+                            _c("li", {
+                              domProps: { textContent: _vm._s(task.body) }
+                            }),
+                            _vm._v(" "),
+                            _c(
+                              "li",
+                              {
+                                staticClass:
+                                  " text-right text-xs absolute bottom-1 right-5"
+                              },
+                              [_vm._v(_vm._s(_vm.gettime(task)))]
+                            )
+                          ]
+                        ),
                         _vm._v(" "),
                         _c("div", { staticClass: "triangle-left" })
                       ])
@@ -44373,20 +44394,27 @@ var render = function() {
                         [
                           _c("div", { staticClass: "triangle-right" }),
                           _vm._v(" "),
-                          _c("div", { staticClass: "chat-right w-2/5" }, [
-                            _c("li", {
-                              domProps: { textContent: _vm._s(task.body) }
-                            }),
-                            _vm._v(" "),
-                            _c(
-                              "li",
-                              {
-                                staticClass:
-                                  " text-right text-xs absolute bottom-1 right-7"
-                              },
-                              [_vm._v(_vm._s(_vm.gettime(task)))]
-                            )
-                          ])
+                          _c(
+                            "div",
+                            {
+                              staticClass:
+                                "inline-block break-all chat-right w-2/5"
+                            },
+                            [
+                              _c("li", {
+                                domProps: { textContent: _vm._s(task.body) }
+                              }),
+                              _vm._v(" "),
+                              _c(
+                                "li",
+                                {
+                                  staticClass:
+                                    " text-right text-xs absolute bottom-1 right-7"
+                                },
+                                [_vm._v(_vm._s(_vm.gettime(task)))]
+                              )
+                            ]
+                          )
                         ]
                       )
                 ])
@@ -44414,7 +44442,7 @@ var render = function() {
               }
             ],
             staticClass: " w-full h-10 rounded-xl border-2 border-gray-600 ",
-            attrs: { type: "text" },
+            attrs: { maxlength: "500", type: "text" },
             domProps: { value: _vm.newTask },
             on: {
               keyup: function($event) {
