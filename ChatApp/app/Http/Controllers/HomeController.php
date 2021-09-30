@@ -54,6 +54,8 @@ class HomeController extends Controller
     }
     public function addfriend($id)
     {
+        $friend = User::where([['id', '=', $id]])->first();
+
         $project = Project::create([
             'name' => 'prive'
         ]);
@@ -68,11 +70,13 @@ class HomeController extends Controller
         friend::create([
             'user_id' => Auth::user()->id,
             'friend_id' => $id,
+            'friend_name' => $friend->name,
             'chat_id' => $project->id,
         ]);
         friend::create([
             'user_id' => $id,
             'friend_id' => Auth::user()->id,
+            'friend_name' => Auth::user()->name,
             'chat_id' => $project->id,
         ]);
 

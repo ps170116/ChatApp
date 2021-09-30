@@ -17,6 +17,7 @@ class CreateFriendsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('friend_id');
+            $table->string('friend_name');
             $table->unsignedBigInteger('chat_id');
             $table->timestamps();
         });
